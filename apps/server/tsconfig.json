@@ -1,23 +1,38 @@
 {
     "extends": "@repo/typescript-config/base.json",
-    "target": "ES2020",
-    "module": "commonjs",
-    "outDir": "./dist",
-    "rootDir": "src",
     "compilerOptions": {
-        "baseUrl": ".",
-        "paths": {
-            "@/*": [
-                "src/*"
-            ]
-        }
+        /* Basic Options */
+        "target": "ES2021", // Use modern JavaScript features for better performance.
+        "module": "CommonJS", // Node.js uses CommonJS modules.
+        "lib": [
+            "ES2021"
+        ], // Include modern ECMAScript features.
+        /* Module Resolution */
+        "moduleResolution": "node", // Resolve modules the way Node.js does.
+        "allowSyntheticDefaultImports": true, // Allow `import x from "x"` for non-ES6 modules.
+        "resolveJsonModule": true, // Allow importing JSON files.
+        /* Source Maps */
+        "sourceMap": true, // Enable source maps for debugging.
+        /* Strict Type-Checking Options */
+        "noImplicitAny": true, // Disallow `any` type unless explicitly specified.
+        "strictNullChecks": true, // Ensure proper null/undefined handling.
+        "strictFunctionTypes": true, // Check function parameters and return types.
+        "strictBindCallApply": true, // Check bind/call/apply methods of functions.
+        /* Paths and Aliases */
+        "baseUrl": "./", // Base directory for resolving non-relative modules.
+        "outDir": "./dist", // Output directory for compiled files.
+        "rootDir": "./src", // Root directory for input files.
+        /* Node.js Settings */
+        "types": [
+            "node"
+        ], // Include Node.js type definitions.
     },
     "include": [
-        "src/**/*"
-    ],
+        "src"
+    ], // Include all TypeScript files in the `src` folder.
     "exclude": [
         "node_modules",
         "dist",
         "__tests__"
-    ]
+    ] // Exclude unnecessary directories from compilation.
 }
