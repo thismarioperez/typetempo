@@ -18,7 +18,7 @@ export class AuthController {
     }
 
     register = async (
-        req: Request<{}, {}, RegisterData>,
+        req: Request<unknown, unknown, RegisterData>,
         res: Response<AuthResponse>,
         next: NextFunction
     ) => {
@@ -41,7 +41,7 @@ export class AuthController {
     };
 
     login = async (
-        req: Request<{}, {}, LoginCredentials>,
+        req: Request<unknown, unknown, LoginCredentials>,
         res: Response<AuthResponse>,
         next: NextFunction
     ) => {
