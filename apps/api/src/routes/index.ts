@@ -7,4 +7,4 @@ const router = Router();
 router.use("/", rootRouter);
 router.use("/auth", authRouter);
 
-export { router as apiRouter };
+export { router };
