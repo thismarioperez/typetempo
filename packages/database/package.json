@@ -1,0 +1,29 @@
+{
+    "name": "@typetempo/db",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./src/index.ts",
+    "types": "./src/index.ts",
+    "scripts": {
+        "db:generate": "prisma generate",
+        "db:migrate": "prisma migrate dev",
+        "db:push": "prisma db push",
+        "db:studio": "prisma studio",
+        "lint": "eslint . --ext .ts",
+        "lint:fix": "eslint . --ext .ts --fix"
+    },
+    "prisma": {
+        "seed": "tsx prisma/seed.ts"
+    },
+    "dependencies": {
+        "@prisma/client": "^5.22.0"
+    },
+    "devDependencies": {
+        "@types/node": "^22.9.0",
+        "@typetempo/eslint-config": "*",
+        "@typetempo/typescript-config": "*",
+        "prisma": "^5.22.0",
+        "tsx": "^4.19.2",
+        "typescript": "^5.6.3"
+    }
+}

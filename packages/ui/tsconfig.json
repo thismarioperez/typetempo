@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/base.json",
+  "extends": "@typetempo/typescript-config/base.json",
   "include": [
     "."
   ],

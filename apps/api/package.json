@@ -1,5 +1,5 @@
 {
-    "name": "server",
+    "name": "api",
     "version": "0.0.0",
     "private": true,
     "type": "commonjs",
@@ -15,6 +15,7 @@
         "test:coverage": "vitest run --coverage"
     },
     "dependencies": {
+        "@typetempo/db": "*",
         "bcryptjs": "^2.4.3",
         "cors": "^2.8.5",
         "dotenv": "^16.0.3",
@@ -35,6 +36,7 @@
         "@vitest/coverage-v8": "^1.2.0",
         "eslint": "^8.38.0",
         "nodemon": "^2.0.22",
+        "prisma": "^5.22.0",
         "supertest": "^6.3.3",
         "tsx": "^4.19.2",
         "typescript": "^5.0.4",

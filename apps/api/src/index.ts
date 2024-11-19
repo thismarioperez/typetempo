@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { config } from "./config";
-import { apiRouter } from "./routes";
+import { router } from "./routes";
 import { errorHandler } from "./middleware/error.middleware";
 import { logger } from "./utils/logger";
 
@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/api", apiRouter);
+app.use("/", router);
 
 // Error handling
 app.use(errorHandler);
