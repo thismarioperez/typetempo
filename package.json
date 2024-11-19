@@ -16,5 +16,8 @@
     "workspaces": [
         "apps/*",
         "packages/*"
-    ]
+    ],
+    "dependencies": {
+        "prettier-plugin-tailwindcss": "^0.6.9"
+    }
 }
