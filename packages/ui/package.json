@@ -8,7 +8,7 @@
     },
     "license": "MIT",
     "scripts": {
-        "lint": "eslint \"**/*.ts\""
+        "lint": "eslint . --ext .ts"
     },
     "devDependencies": {
         "@typetempo/eslint-config": "*",
