@@ -1,6 +1,13 @@
 {
+    "name": "typetempo",
+    "version": "0.0.0",
     "private": true,
+    "engines": {
+        "node": ">=20",
+        "pnpm": ">=9"
+    },
     "scripts": {
+        "preinstall": "npx only-allow pnpm", 
         "build": "turbo build",
         "dev": "turbo dev",
         "lint": "turbo lint",
@@ -11,11 +18,5 @@
         "prettier": "^3.2.5",
         "prettier-plugin-tailwindcss": "^0.6.9",
         "turbo": "^2.3.0"
-    },
-    "name": "with-vite",
-    "packageManager": "yarn@1.22.22",
-    "workspaces": [
-        "apps/*",
-        "packages/*"
-    ]
+    }
 }
