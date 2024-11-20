@@ -1,0 +1,47 @@
+{
+    "name": "api",
+    "version": "0.0.0",
+    "private": true,
+    "type": "commonjs",
+    "main": "dist/index.js",
+    "scripts": {
+        "dev": "nodemon",
+        "build": "tsc",
+        "start": "node dist/index.js",
+        "lint": "eslint . --ext .ts",
+        "lint:fix": "eslint . --ext .ts --fix",
+        "test": "NODE_ENV=test && vitest run",
+        "test:watch": "NODE_ENV=test && vitest",
+        "test:coverage": "vitest run --coverage"
+    },
+    "dependencies": {
+        "@typetempo/db": "workspace:*",
+        "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "express-validator": "^7.0.1",
+        "jsonwebtoken": "^9.0.0",
+        "winston": "^3.8.2"
+    },
+    "devDependencies": {
+        "@types/bcryptjs": "^2.4.2",
+        "@types/cors": "^2.8.13",
+        "@types/express": "^4.17.17",
+        "@types/jsonwebtoken": "^9.0.1",
+        "@types/node": "^18.15.11",
+        "@types/supertest": "^2.0.12",
+        "@typescript-eslint/eslint-plugin": "^5.58.0",
+        "@typescript-eslint/parser": "^5.58.0",
+        "@typetempo/config-eslint": "workspace:*",
+        "@typetempo/config-typescript": "workspace:*",
+        "@vitest/coverage-v8": "^1.2.0",
+        "eslint": "^8.38.0",
+        "nodemon": "^2.0.22",
+        "prisma": "^5.22.0",
+        "supertest": "^6.3.3",
+        "tsx": "^4.19.2",
+        "typescript": "^5.0.4",
+        "vitest": "^1.2.0"
+    }
+}

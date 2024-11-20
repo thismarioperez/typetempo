@@ -1,0 +1,3 @@
+{
+    "extends": "@typetempo/config-typescript/base.json",
+}
