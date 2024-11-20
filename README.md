@@ -1,14 +1,4 @@
-# `Turborepo` Vite starter
-
-This is an official starter Turborepo.
-
-## Using this example
-
-Run the following command:
-
-```sh
-npx create-turbo@latest -e with-vite
-```
+# Typetempo
 
 ## What's inside?
 
@@ -16,11 +6,11 @@ This Turborepo includes the following packages and apps:
 
 ### Apps and Packages
 
--   `api` backend api server
+-   `api` backend api `express` server written in Typescript
+-   `web` vue3 SPA frontend written in Typescript
+-   `@typetempo/db`: shared `prisma` orm library for interacting with database
 -   `@typetempo/eslint-config`: shared `eslint` configurations
 -   `@typetempo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
 
 ### Utilities
 
