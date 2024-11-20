@@ -1,5 +1,5 @@
 {
-    "extends": "@typetempo/typescript-config/base.json",
+    "extends": "@typetempo/config-typescript/base.json",
     "compilerOptions": {
         /* Basic Options */
         "target": "ES2021", // Use modern JavaScript features for better performance.

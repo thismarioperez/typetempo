@@ -1,5 +1,5 @@
 {
-    "name": "@typetempo/typescript-config",
+    "name": "@typetempo/config-typescript",
     "version": "0.0.0",
     "private": true,
     "license": "MIT",

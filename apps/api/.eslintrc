@@ -1,5 +1,5 @@
 {
     "extends": [
-        "@typetempo/eslint-config/index.js"
+        "@typetempo/config-eslint/index.js"
     ]
 }

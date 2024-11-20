@@ -1,5 +1,5 @@
 {
-    "name": "@typetempo/eslint-config",
+    "name": "@typetempo/config-eslint",
     "version": "0.0.0",
     "main": "index.js",
     "license": "MIT",

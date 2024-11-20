@@ -9,8 +9,8 @@ This Turborepo includes the following packages and apps:
 -   `api` backend api `express` server written in Typescript
 -   `web` vue3 SPA frontend written in Typescript
 -   `@typetempo/db`: shared `prisma` orm library for interacting with database
--   `@typetempo/eslint-config`: shared `eslint` configurations
--   `@typetempo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+-   `@typetempo/config-eslint`: shared `eslint` configurations
+-   `@typetempo/config-typescript`: `tsconfig.json`s used throughout the monorepo
 
 ### Utilities
 
