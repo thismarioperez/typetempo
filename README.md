@@ -1,4 +1,4 @@
-# Typetempo
+# typetempo
 
 ## What's inside?
 
