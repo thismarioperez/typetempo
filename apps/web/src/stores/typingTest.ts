@@ -77,7 +77,7 @@ export const calculateVisibleWordData = (
 };
 
 export const useTypingTestStore = defineStore("typingTest", () => {
-    const testText = ref("");
+    const testText = ref("the quick brown fox jumps over the lazy dog");
     const typedText = ref("");
     const startTime = ref<number | null>(null);
     const endTime = ref<number | null>(null);
@@ -87,9 +87,9 @@ export const useTypingTestStore = defineStore("typingTest", () => {
     // computed
     const currentWordIndex = computed(() => calculateCurrentWordIndex(typedText.value));
 
-    const visibleTextData = computed((): Character[] => {
-        return calculateVisibleWordData(testText.value, typedText.value, currentWordIndex.value);
-    });
+    const visibleTextData = computed((): Character[] =>
+        calculateVisibleWordData(testText.value, typedText.value, currentWordIndex.value),
+    );
 
     // actions
     const startTest = () => {
@@ -112,11 +112,15 @@ export const useTypingTestStore = defineStore("typingTest", () => {
     };
 
     return {
+        // state
+        testText,
+        typedText,
         startTime,
         endTime,
         testStarted,
         testEnded,
         // computed
+        currentWordIndex,
         visibleTextData,
         // actions
         startTest,
