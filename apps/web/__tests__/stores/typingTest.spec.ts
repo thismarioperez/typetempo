@@ -147,7 +147,7 @@ describe("Typing Test Store", () => {
             expect(result).toEqual(output);
         });
 
-        it(`should add ${PADDED_WORDS} words before the current word`, () => {
+        it(`should add ${PADDED_WORDS} words after the current word`, () => {
             const testText = "hello world with extra words";
             const typedText = "hello";
             const currentWordIndex = 1;
