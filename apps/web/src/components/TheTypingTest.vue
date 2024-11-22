@@ -1,15 +1,38 @@
 <script lang="ts" setup>
 import { useTypingTestStore } from "@/stores/typingTest";
 import { storeToRefs } from "pinia";
+import { ref, watch } from "vue";
 
 const typingTestStore = useTypingTestStore();
 const {
     // actions
     startTest,
     endTest,
+    resetTest,
 } = typingTestStore;
 
-const { visibleTextData, typedText } = storeToRefs(typingTestStore);
+const { visibleTextData, testText, typedText, wpm, testStarted, testEnded, wordsTyped } = storeToRefs(typingTestStore);
+
+const textInput = ref<HTMLInputElement | null>(null);
+const startButton = ref<HTMLButtonElement | null>(null);
+const resetButton = ref<HTMLButtonElement | null>(null);
+
+const handleStartClick = () => {
+    textInput.value?.focus();
+    startTest();
+};
+
+const handleResetClick = () => {
+    startButton.value?.focus();
+    resetTest();
+};
+
+watch(typedText, () => {
+    if (testStarted.value && !testEnded.value && wordsTyped.value === testText.value.split(" ").length) {
+        endTest();
+        resetButton.value?.focus();
+    }
+});
 </script>
 
 <template>
@@ -28,9 +51,13 @@ const { visibleTextData, typedText } = storeToRefs(typingTestStore);
                 {{ item.value }}
             </span>
         </div>
+        <div id="wpm-indicator">
+            <span>{{ wpm }} WPM</span>
+        </div>
         <div id="test-input-wrapper">
             <label for="test-input">
                 <input
+                    ref="textInput"
                     id="test-input"
                     type="text"
                     autocomplete="off"
@@ -38,10 +65,12 @@ const { visibleTextData, typedText } = storeToRefs(typingTestStore);
                     autocapitalize="off"
                     spellcheck="false"
                     v-model.trim="typedText"
-                    @focus="startTest"
-                    @blur="endTest"
                 />
             </label>
+        </div>
+        <div id="buttons">
+            <button ref="startButton" @click="handleStartClick">Start</button>
+            <button ref="resetButton" @click="handleResetClick">Reset</button>
         </div>
     </div>
 </template>
