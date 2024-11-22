@@ -26,8 +26,10 @@ export const createVisibleWordCharacters = (testWord: string, typedWord: string)
     const typedWordChars = typedWord.split("");
     const ret: Character[] = [];
 
+    // loop through the characters of the word
     let currentTestChar: string = "";
     let currentTypedChar: string = "";
+    let currentTestCharIsEmpty: boolean = false;
     let value: CharacterValue = "";
     let status: CharacterStatus = "unknown";
     const type: CharacterType = "symbol";
@@ -35,8 +37,9 @@ export const createVisibleWordCharacters = (testWord: string, typedWord: string)
     for (let i = 0; i < limit; i++) {
         currentTestChar = testWordChars[i] || "";
         currentTypedChar = typedWordChars[i] || "";
+        currentTestCharIsEmpty = currentTestChar.length === 0;
 
-        value = currentTestChar ?? currentTypedChar; // if currentTestChar is empty, use currentTypedChar. The user has input more characters than there should exist for this word
+        value = currentTestCharIsEmpty ? currentTypedChar : currentTestChar; // if currentTestChar is empty, use currentTypedChar. The user has input more characters than there should exist for this word
         status = calculateCharacterStatus(currentTestChar, currentTypedChar);
 
         ret.push({

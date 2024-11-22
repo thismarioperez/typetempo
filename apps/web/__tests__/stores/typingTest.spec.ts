@@ -77,6 +77,27 @@ describe("Typing Test Store", () => {
             expect(result).toEqual(output);
         });
 
+        it("should emit extra characters as incorrect characters", () => {
+            const testText = "hello";
+            const typedText = "helloasdf";
+            const output: Character[] = [
+                { value: "h", status: "correct", type: "symbol" },
+                { value: "e", status: "correct", type: "symbol" },
+                { value: "l", status: "correct", type: "symbol" },
+                { value: "l", status: "correct", type: "symbol" },
+                { value: "o", status: "correct", type: "symbol" },
+                { value: "a", status: "incorrect", type: "symbol" },
+                { value: "s", status: "incorrect", type: "symbol" },
+                { value: "d", status: "incorrect", type: "symbol" },
+                { value: "f", status: "incorrect", type: "symbol" },
+            ];
+
+            const result = createVisibleWordCharacters(testText, typedText);
+            console.log(result);
+
+            expect(result).toEqual(output);
+        });
+
         it("should detect unknown characters", () => {
             const testText = "hello";
             const typedText = "";
