@@ -15,6 +15,7 @@ const { visibleTextData, typedText } = storeToRefs(typingTestStore);
 <template>
     <div id="typing-test">
         <div id="visual-text">
+            <!-- TODO: create more stable unique keys for each item -->
             <span
                 v-for="(item, index) in visibleTextData"
                 :key="index"
