@@ -5,6 +5,7 @@ import {
     calculateCharacterStatus,
     createVisibleWordCharacters,
     calculateVisibleWordData,
+    calculateWPM,
     PADDED_WORDS,
 } from "../../src/stores/typingTest";
 
@@ -160,6 +161,30 @@ describe("Typing Test Store", () => {
             const result = calculateVisibleWordData(testText, typedText, currentWordIndex);
 
             expect(result).toHaveLength(output);
+        });
+    });
+
+    describe("calculateWPM", () => {
+        const startTime = Date.now();
+        const endTime = startTime + 10000; // 10 seconds of typing
+
+        it("should return 0 if no words are typed", () => {
+            const result = calculateWPM(startTime, endTime, 0);
+
+            expect(result).toBe(0);
+        });
+
+        it("should throw an error if start time is greater than end time", () => {
+            expect(() => {
+                calculateWPM(endTime, startTime, 0);
+            }).toThrow("Start time cannot be greater than end time");
+        });
+
+        it("should return 60 WPM if there are 10 words typed within 10 seconds", () => {
+            const wordsTyped = 10;
+            const result = calculateWPM(startTime, endTime, wordsTyped);
+
+            expect(result).toBe(60);
         });
     });
 });

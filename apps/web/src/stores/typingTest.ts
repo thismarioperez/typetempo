@@ -79,6 +79,22 @@ export const calculateVisibleWordData = (
     return visibleWords;
 };
 
+export const calculateWPM = (startTime: number, endTime: number, wordsTyped: number): number => {
+    if (startTime > endTime) {
+        throw new Error("Start time cannot be greater than end time");
+    }
+
+    if (wordsTyped <= 0) {
+        return 0;
+    }
+
+    const elapsedTime = endTime - startTime;
+    const minutes = elapsedTime / 1000 / 60;
+    const wpm = Math.round(wordsTyped / minutes);
+
+    return wpm;
+};
+
 export const useTypingTestStore = defineStore("typingTest", () => {
     const testText = ref("the quick brown fox jumps over the lazy dog");
     const typedText = ref("");
