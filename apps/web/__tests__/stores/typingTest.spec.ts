@@ -6,6 +6,7 @@ import {
     createVisibleWordCharacters,
     calculateVisibleWordData,
     calculateWPM,
+    calculateCompletedWords,
     PADDED_WORDS,
 } from "../../src/stores/typingTest";
 
@@ -185,6 +186,40 @@ describe("Typing Test Store", () => {
             const result = calculateWPM(startTime, endTime, wordsTyped);
 
             expect(result).toBe(60);
+        });
+    });
+
+    describe("calculateCompletedWords", () => {
+        it("should return the number of words typed", () => {
+            const testText = "hello world";
+            const result = calculateCompletedWords(testText, testText);
+
+            expect(result).toBe(2);
+        });
+
+        it("should return 0 if no words are typed", () => {
+            const testText = "hello world";
+            const result = calculateCompletedWords(testText, "");
+
+            expect(result).toBe(0);
+        });
+
+        it("should return the number of words typed not including the current word", () => {
+            const testText = "hello world";
+            const typedText = "hello";
+
+            const result = calculateCompletedWords(testText, typedText);
+
+            expect(result).toBe(1);
+        });
+
+        it("should return the number of words typed, accounting for mispelled words and partial words", () => {
+            const testText = "hello world";
+            const typedText = "hellojfda wo";
+
+            const result = calculateCompletedWords(testText, typedText);
+
+            expect(result).toBe(1);
         });
     });
 });

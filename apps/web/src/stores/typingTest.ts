@@ -79,6 +79,37 @@ export const calculateVisibleWordData = (
     return visibleWords;
 };
 
+export const calculateCompletedWords = (testText: string, typedText: string): number => {
+    const testWords = testText.split(" ");
+    const typedWords = typedText.split(" ");
+
+    let completedWords = 0;
+    let typedLength = 0;
+
+    let testWord = "";
+    let remainingTypedText = "";
+    let nextTypedWord = "";
+
+    for (let i = 0; i < typedWords.length; i++) {
+        // Guard if the typed text is longer than the test text. Stop here
+        if (typedLength >= typedText.length) break;
+
+        testWord = testWords[i];
+        remainingTypedText = typedText.slice(typedLength).trim();
+
+        // Match the next typed word up to the test word's length or further
+        nextTypedWord = remainingTypedText.split(" ")[0];
+        if (nextTypedWord.length >= testWord.length) {
+            completedWords++;
+        }
+
+        // Update the length of typed text processed so far
+        typedLength += nextTypedWord.length + 1; // +1 accounts for the space
+    }
+
+    return completedWords;
+};
+
 export const calculateWPM = (startTime: number, endTime: number, wordsTyped: number): number => {
     if (startTime > endTime) {
         throw new Error("Start time cannot be greater than end time");
@@ -95,8 +126,10 @@ export const calculateWPM = (startTime: number, endTime: number, wordsTyped: num
     return wpm;
 };
 
+const INITIAL_TEST_TEXT = "the quick brown fox jumps over the lazy dog";
+
 export const useTypingTestStore = defineStore("typingTest", () => {
-    const testText = ref("the quick brown fox jumps over the lazy dog");
+    const testText = ref(INITIAL_TEST_TEXT);
     const typedText = ref("");
     const startTime = ref<number | null>(null);
     const endTime = ref<number | null>(null);
@@ -110,6 +143,21 @@ export const useTypingTestStore = defineStore("typingTest", () => {
         calculateVisibleWordData(testText.value, typedText.value, currentWordIndex.value),
     );
 
+    const wordsTyped = computed(() => {
+        const typedWords = calculateCompletedWords(testText.value, typedText.value);
+        return typedWords;
+    });
+
+    const wpm = computed(() => {
+        if (testStarted.value) {
+            if (testEnded.value) {
+                return calculateWPM(startTime.value!, endTime.value!, wordsTyped.value);
+            }
+            return calculateWPM(startTime.value!, Date.now(), wordsTyped.value);
+        }
+        return 0;
+    });
+
     // actions
     const startTest = () => {
         testStarted.value = true;
@@ -117,12 +165,13 @@ export const useTypingTestStore = defineStore("typingTest", () => {
     };
 
     const endTest = () => {
+        console.log("Test ended");
         testEnded.value = true;
         endTime.value = Date.now();
     };
 
     const resetTest = () => {
-        testText.value = "";
+        testText.value = INITIAL_TEST_TEXT;
         typedText.value = "";
         startTime.value = null;
         endTime.value = null;
@@ -141,6 +190,8 @@ export const useTypingTestStore = defineStore("typingTest", () => {
         // computed
         currentWordIndex,
         visibleTextData,
+        wordsTyped,
+        wpm,
         // actions
         startTest,
         endTest,
