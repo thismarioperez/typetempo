@@ -37,6 +37,9 @@ watch(typedText, () => {
 
 <template>
     <div id="typing-test">
+        <div id="wpm-indicator">
+            <span>{{ wpm }} WPM</span>
+        </div>
         <div id="visual-text">
             <!-- TODO: create more stable unique keys for each item -->
             <span
@@ -51,12 +54,10 @@ watch(typedText, () => {
                 {{ item.value }}
             </span>
         </div>
-        <div id="wpm-indicator">
-            <span>{{ wpm }} WPM</span>
-        </div>
         <div id="test-input-wrapper">
             <label for="test-input">
                 <input
+                    class="test-input"
                     ref="textInput"
                     id="test-input"
                     type="text"
@@ -88,5 +89,13 @@ watch(typedText, () => {
 .unknown {
     color: inherit;
     opacity: 0.5;
+}
+
+input.test-input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+    width: 0;
+    height: 0;
 }
 </style>
