@@ -6,7 +6,7 @@ import { RouterLink } from "vue-router";
     <header>
         <div class="wrapper">
             <nav>
-                <RouterLink to="/">Home</RouterLink>
+                <RouterLink to="/">Typing</RouterLink>
                 <RouterLink to="/settings">Settings</RouterLink>
             </nav>
         </div>
@@ -21,7 +21,7 @@ nav {
     margin-top: 2rem;
 }
 
-nav a.router-link-exact-active {
+nav a:not(.router-link-exact-active) {
     color: var(--color-text);
 }
 
