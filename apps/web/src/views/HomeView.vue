@@ -1,9 +1,19 @@
 <script setup lang="ts">
-import TheWelcome from "../components/TheWelcome.vue";
+import TheTypingTest from "@/components/TheTypingTest.vue";
 </script>
 
 <template>
     <main>
-        <TheWelcome />
+        <TheTypingTest />
     </main>
 </template>
+
+<style scoped>
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+</style>
