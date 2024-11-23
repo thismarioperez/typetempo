@@ -36,11 +36,11 @@ watch(typedText, () => {
 </script>
 
 <template>
-    <div id="typing-test">
-        <div id="wpm-indicator">
+    <div class="typing-test">
+        <div class="wpm-indicator">
             <span>{{ wpm }} WPM</span>
         </div>
-        <div id="visual-text">
+        <div class="visual-text">
             <!-- TODO: create more stable unique keys for each item -->
             <span
                 v-for="(item, index) in visibleTextData"
@@ -54,7 +54,7 @@ watch(typedText, () => {
                 {{ item.value }}
             </span>
         </div>
-        <div id="test-input-wrapper">
+        <div class="test-input-wrapper">
             <label for="test-input">
                 <input
                     class="test-input"
@@ -69,7 +69,7 @@ watch(typedText, () => {
                 />
             </label>
         </div>
-        <div id="buttons">
+        <div class="buttons">
             <button ref="startButton" @click="handleStartClick">Start</button>
             <button ref="resetButton" @click="handleResetClick">Reset</button>
         </div>
