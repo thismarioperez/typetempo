@@ -36,5 +36,18 @@ describe("util/language", () => {
             expect(result.length).toBe(original.length);
             expect(result).not.toEqual(original);
         });
+
+        it("should limit the number of words acording to the count parameter", () => {
+            const result = getShuffledWordsByCode("en", 10);
+
+            expect(result).toBeDefined();
+            expect(result.length).toBe(10);
+        });
+
+        it("should throw an error if the code is invalid", () => {
+            const result = () => getShuffledWordsByCode("invalid");
+
+            expect(result).toThrowError("Invalid language code");
+        });
     });
 });

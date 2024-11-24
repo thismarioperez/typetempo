@@ -14,6 +14,12 @@ export const getLanguageByCode = (code: LanguageCode): Language => {
     }
 };
 
-export const getShuffledWordsByCode = (code: LanguageCode): string[] => {
-    return shuffleArray(getLanguageByCode(code)?.words || []);
+export const getShuffledWordsByCode = (code: LanguageCode, count?: number): string[] => {
+    let words = shuffleArray(getLanguageByCode(code)?.words || []);
+
+    if (count) {
+        words = words.slice(0, count);
+    }
+
+    return words;
 };
