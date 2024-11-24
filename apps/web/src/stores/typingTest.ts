@@ -10,8 +10,6 @@ import {
 import { type LanguageCode } from "@/models/Language";
 import { getShuffledWordsByCode } from "@/util/language";
 
-export const PADDED_WORDS = 3;
-
 export const calculateCurrentWordIndex = (typedText: string): number => {
     const typedWords = typedText.split(" ");
     return typedWords.length - 1;
@@ -59,6 +57,8 @@ export const createVisibleWordCharacters = (testWord: string, typedWord: string)
 
     return ret;
 };
+
+export const PADDED_WORDS = 3;
 
 export const calculateVisibleWordData = (
     testText: string,
