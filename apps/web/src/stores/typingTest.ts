@@ -1,6 +1,14 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import { type Character, type CharacterStatus, type CharacterType, type CharacterValue } from "@/models";
+import {
+    type WordLimit,
+    type Character,
+    type CharacterStatus,
+    type CharacterType,
+    type CharacterValue,
+} from "@/models";
+import { type LanguageCode } from "@/models/Language";
+import { getShuffledWordsByCode } from "@/util/language";
 
 export const PADDED_WORDS = 3;
 
@@ -126,10 +134,10 @@ export const calculateWPM = (startTime: number, endTime: number, wordsTyped: num
     return wpm;
 };
 
-const INITIAL_TEST_TEXT = "the quick brown fox jumps over the lazy dog";
-
 export const useTypingTestStore = defineStore("typingTest", () => {
-    const testText = ref(INITIAL_TEST_TEXT);
+    const language = ref<LanguageCode>("en");
+    const wordLimit = ref<WordLimit>(50);
+    const testText = ref(getShuffledWordsByCode(language.value, wordLimit.value).join(" "));
     const typedText = ref("");
     const startTime = ref<number | null>(null);
     const endTime = ref<number | null>(null);
@@ -171,7 +179,7 @@ export const useTypingTestStore = defineStore("typingTest", () => {
     };
 
     const resetTest = () => {
-        testText.value = INITIAL_TEST_TEXT;
+        testText.value = getShuffledWordsByCode(language.value, wordLimit.value).join(" ");
         typedText.value = "";
         startTime.value = null;
         endTime.value = null;
@@ -181,6 +189,8 @@ export const useTypingTestStore = defineStore("typingTest", () => {
 
     return {
         // state
+        language,
+        wordLimit,
         testText,
         typedText,
         startTime,
