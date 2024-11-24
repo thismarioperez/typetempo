@@ -23,11 +23,13 @@ describe("TheTypingTest", () => {
                 plugins: [pinia],
             },
         });
-        const textInput = wrapper.find("input.test-input");
+        const wordCountIndicator = wrapper.find(".count-indicator");
         const wpmIndicator = wrapper.find(".wpm-indicator");
+        const textInput = wrapper.find("input.test-input");
         const buttons = wrapper.find(".buttons");
 
         expect(wrapper).toBeTruthy();
+        expect(wordCountIndicator).toBeTruthy();
         expect(textInput).toBeTruthy();
         expect(wpmIndicator).toBeTruthy();
         expect(buttons).toBeTruthy();

@@ -11,7 +11,8 @@ const {
     resetTest,
 } = typingTestStore;
 
-const { visibleTextData, testText, typedText, wpm, testStarted, testEnded, wordsTyped } = storeToRefs(typingTestStore);
+const { wordLimit, currentWordIndex, visibleTextData, testText, typedText, wpm, testStarted, testEnded, wordsTyped } =
+    storeToRefs(typingTestStore);
 
 const textInput = ref<HTMLInputElement | null>(null);
 const startButton = ref<HTMLButtonElement | null>(null);
@@ -37,6 +38,10 @@ watch(typedText, () => {
 
 <template>
     <div class="typing-test">
+        <h1>Typing Test</h1>
+        <div class="count-indicator">
+            <span>{{ currentWordIndex + 1 }}/{{ wordLimit }}</span>
+        </div>
         <div class="wpm-indicator">
             <span>{{ wpm }} WPM</span>
         </div>
