@@ -16,7 +16,7 @@ const data = ref({
     WORD_LIMITS,
 });
 
-const handleSubmit = () => {
+const handleChange = () => {
     if (!form.value) {
         return;
     }
@@ -27,7 +27,7 @@ const handleSubmit = () => {
 
 <template>
     <h1>Settings</h1>
-    <form class="form" ref="form" @submit.prevent="handleSubmit">
+    <form class="form" ref="form" @change="handleChange">
         <div class="inputs">
             <label for="theme">
                 <span>Theme</span>
@@ -57,9 +57,6 @@ const handleSubmit = () => {
                     </option>
                 </select>
             </label>
-        </div>
-        <div class="controls">
-            <button type="submit">Save</button>
         </div>
     </form>
 </template>
