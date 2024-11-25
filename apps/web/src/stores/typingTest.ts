@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { defineStore, storeToRefs } from "pinia";
 import { type Character, type CharacterStatus, type CharacterType, type CharacterValue } from "@/models";
 import { getShuffledWordsByCode } from "@/util/language";
@@ -162,6 +162,10 @@ export const useTypingTestStore = defineStore("typingTest", () => {
         return 0;
     });
 
+    const errorsCount = computed(() => {
+        return visibleTextData.value.filter((char) => char.status === "incorrect").length;
+    });
+
     // actions
     const startTest = () => {
         testStarted.value = true;
@@ -183,6 +187,15 @@ export const useTypingTestStore = defineStore("typingTest", () => {
         testEnded.value = false;
     };
 
+    // watchers
+    watch(language, () => {
+        resetTest();
+    });
+
+    watch(wordLimit, () => {
+        resetTest();
+    });
+
     return {
         // state
         language,
@@ -198,6 +211,7 @@ export const useTypingTestStore = defineStore("typingTest", () => {
         visibleTextData,
         wordsTyped,
         wpm,
+        errorsCount,
         // actions
         startTest,
         endTest,
