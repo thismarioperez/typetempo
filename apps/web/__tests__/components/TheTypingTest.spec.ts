@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { mount } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
 import TheTypingTest from "../../src/components/TheTypingTest/index.vue";
+import ItemChar from "../../src/components/TheTypingTest/ItemChar.vue";
 
 const pinia = createTestingPinia({
     initialState: {
@@ -33,5 +34,55 @@ describe("TheTypingTest", () => {
         expect(textInput).toBeTruthy();
         expect(wpmIndicator).toBeTruthy();
         expect(buttons).toBeTruthy();
+    });
+
+    describe("ItemChar", () => {
+        it("renders correct character properly", () => {
+            const wrapper = mount(ItemChar, {
+                props: {
+                    item: {
+                        value: "a",
+                        status: "correct",
+                        type: "symbol",
+                    },
+                },
+            });
+
+            const span = wrapper.find("span");
+
+            expect(span.classes()).toContain("correct");
+        });
+
+        it("renders incorrect character properly", () => {
+            const wrapper = mount(ItemChar, {
+                props: {
+                    item: {
+                        value: "a",
+                        status: "incorrect",
+                        type: "symbol",
+                    },
+                },
+            });
+
+            const span = wrapper.find("span");
+
+            expect(span.classes()).toContain("incorrect");
+        });
+
+        it("renders unknown character properly", () => {
+            const wrapper = mount(ItemChar, {
+                props: {
+                    item: {
+                        value: "a",
+                        status: "unknown",
+                        type: "symbol",
+                    },
+                },
+            });
+
+            const span = wrapper.find("span");
+
+            expect(span.classes()).toContain("unknown");
+        });
     });
 });

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import Character from "@/components/TheTypingTest/ItemChar.vue";
 import { useTypingTestStore } from "@/stores/typingTest";
 import { storeToRefs } from "pinia";
 import { ref, watch } from "vue";
@@ -59,17 +60,7 @@ watch(typedText, () => {
         </div>
         <div class="visual-text">
             <!-- TODO: create more stable unique keys for each item -->
-            <span
-                v-for="(item, index) in visibleTextData"
-                :key="index"
-                :class="{
-                    correct: item.status === 'correct',
-                    incorrect: item.status === 'incorrect',
-                    unknown: item.status === 'unknown',
-                }"
-            >
-                {{ item.value }}
-            </span>
+            <Character v-for="(item, index) in visibleTextData" :key="index" :item="item" />
         </div>
         <div class="test-input-wrapper">
             <label for="test-input">
@@ -94,20 +85,6 @@ watch(typedText, () => {
 </template>
 
 <style scoped>
-.correct {
-    color: inherit;
-    opacity: 1;
-}
-
-.incorrect {
-    color: red;
-}
-
-.unknown {
-    color: inherit;
-    opacity: 0.5;
-}
-
 input.test-input {
     position: absolute;
     opacity: 0;
