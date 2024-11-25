@@ -1,8 +1,8 @@
-import { ref, computed } from "vue";
-import { defineStore } from "pinia";
+import { ref, computed, watch } from "vue";
+import { defineStore, storeToRefs } from "pinia";
 import { type Character, type CharacterStatus, type CharacterType, type CharacterValue } from "@/models";
-
-export const PADDED_WORDS = 3;
+import { getShuffledWordsByCode } from "@/util/language";
+import { useSettingsStore } from "./settings";
 
 export const calculateCurrentWordIndex = (typedText: string): number => {
     const typedWords = typedText.split(" ");
@@ -51,6 +51,8 @@ export const createVisibleWordCharacters = (testWord: string, typedWord: string)
 
     return ret;
 };
+
+export const PADDED_WORDS = 3;
 
 export const calculateVisibleWordData = (
     testText: string,
@@ -126,10 +128,12 @@ export const calculateWPM = (startTime: number, endTime: number, wordsTyped: num
     return wpm;
 };
 
-const INITIAL_TEST_TEXT = "the quick brown fox jumps over the lazy dog";
-
 export const useTypingTestStore = defineStore("typingTest", () => {
-    const testText = ref(INITIAL_TEST_TEXT);
+    // external state
+    const { language, wordLimit } = storeToRefs(useSettingsStore());
+
+    // state
+    const testText = ref(getShuffledWordsByCode(language.value, parseInt(wordLimit.value)).join(" "));
     const typedText = ref("");
     const startTime = ref<number | null>(null);
     const endTime = ref<number | null>(null);
@@ -158,6 +162,10 @@ export const useTypingTestStore = defineStore("typingTest", () => {
         return 0;
     });
 
+    const errorsCount = computed(() => {
+        return visibleTextData.value.filter((char) => char.status === "incorrect").length;
+    });
+
     // actions
     const startTest = () => {
         testStarted.value = true;
@@ -171,7 +179,7 @@ export const useTypingTestStore = defineStore("typingTest", () => {
     };
 
     const resetTest = () => {
-        testText.value = INITIAL_TEST_TEXT;
+        testText.value = getShuffledWordsByCode(language.value, parseInt(wordLimit.value)).join(" ");
         typedText.value = "";
         startTime.value = null;
         endTime.value = null;
@@ -179,8 +187,19 @@ export const useTypingTestStore = defineStore("typingTest", () => {
         testEnded.value = false;
     };
 
+    // watchers
+    watch(language, () => {
+        resetTest();
+    });
+
+    watch(wordLimit, () => {
+        resetTest();
+    });
+
     return {
         // state
+        language,
+        wordLimit,
         testText,
         typedText,
         startTime,
@@ -192,6 +211,7 @@ export const useTypingTestStore = defineStore("typingTest", () => {
         visibleTextData,
         wordsTyped,
         wpm,
+        errorsCount,
         // actions
         startTest,
         endTest,

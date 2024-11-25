@@ -95,7 +95,6 @@ describe("Typing Test Store", () => {
             ];
 
             const result = createVisibleWordCharacters(testText, typedText);
-            console.log(result);
 
             expect(result).toEqual(output);
         });
