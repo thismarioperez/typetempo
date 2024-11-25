@@ -1,10 +1,10 @@
 import z from "zod";
 
-export const LanguageCodes = ["en", "es"] as const;
+export const LANGUAGE_CODES = ["en", "es"] as const;
 
 export const LanguageSchema = z.object({
     name: z.string(),
-    code: z.enum(LanguageCodes),
+    code: z.enum(LANGUAGE_CODES),
     description: z.string(),
     words: z.array(z.string()),
 });
