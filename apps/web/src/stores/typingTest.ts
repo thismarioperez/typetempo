@@ -1,14 +1,8 @@
 import { ref, computed } from "vue";
-import { defineStore } from "pinia";
-import {
-    type SettingsWordLimit,
-    type Character,
-    type CharacterStatus,
-    type CharacterType,
-    type CharacterValue,
-    type LanguageCode,
-} from "@/models";
+import { defineStore, storeToRefs } from "pinia";
+import { type Character, type CharacterStatus, type CharacterType, type CharacterValue } from "@/models";
 import { getShuffledWordsByCode } from "@/util/language";
+import { useSettingsStore } from "./settings";
 
 export const calculateCurrentWordIndex = (typedText: string): number => {
     const typedWords = typedText.split(" ");
@@ -135,8 +129,10 @@ export const calculateWPM = (startTime: number, endTime: number, wordsTyped: num
 };
 
 export const useTypingTestStore = defineStore("typingTest", () => {
-    const language = ref<LanguageCode>("en");
-    const wordLimit = ref<SettingsWordLimit>("50");
+    // external state
+    const { language, wordLimit } = storeToRefs(useSettingsStore());
+
+    // state
     const testText = ref(getShuffledWordsByCode(language.value, parseInt(wordLimit.value)).join(" "));
     const typedText = ref("");
     const startTime = ref<number | null>(null);
