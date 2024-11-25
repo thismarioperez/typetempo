@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { mount } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
-import TheTypingTest from "../../src/components/TheTypingTest.vue";
+import TheTypingTest from "../../src/components/TheTypingTest/index.vue";
 
 const pinia = createTestingPinia({
     initialState: {

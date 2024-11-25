@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TheTypingTest from "@/components/TheTypingTest.vue";
+import TheTypingTest from "@/components/TheTypingTest/index.vue";
 </script>
 
 <template>
