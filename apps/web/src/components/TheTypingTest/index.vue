@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import Character from "@/components/TheTypingTest/ItemChar.vue";
 import { useTypingTestStore } from "@/stores/typingTest";
 import { storeToRefs } from "pinia";
 import { ref, watch } from "vue";
@@ -11,7 +12,18 @@ const {
     resetTest,
 } = typingTestStore;
 
-const { visibleTextData, testText, typedText, wpm, testStarted, testEnded, wordsTyped } = storeToRefs(typingTestStore);
+const {
+    wordLimit,
+    currentWordIndex,
+    visibleTextData,
+    testText,
+    typedText,
+    wpm,
+    testStarted,
+    testEnded,
+    wordsTyped,
+    errorsCount,
+} = storeToRefs(typingTestStore);
 
 const textInput = ref<HTMLInputElement | null>(null);
 const startButton = ref<HTMLButtonElement | null>(null);
@@ -36,25 +48,21 @@ watch(typedText, () => {
 </script>
 
 <template>
-    <div id="typing-test">
-        <div id="wpm-indicator">
+    <div class="typing-test">
+        <h1>Typing Test</h1>
+        <div class="count-indicator">
+            <span>{{ currentWordIndex + 1 }}/{{ wordLimit }}</span>
+            <span>{{ " " }}</span>
+            <span class="errors-count" v-if="errorsCount > 0">Errors: {{ errorsCount }}</span>
+        </div>
+        <div class="wpm-indicator">
             <span>{{ wpm }} WPM</span>
         </div>
-        <div id="visual-text">
+        <div class="visual-text">
             <!-- TODO: create more stable unique keys for each item -->
-            <span
-                v-for="(item, index) in visibleTextData"
-                :key="index"
-                :class="{
-                    correct: item.status === 'correct',
-                    incorrect: item.status === 'incorrect',
-                    unknown: item.status === 'unknown',
-                }"
-            >
-                {{ item.value }}
-            </span>
+            <Character v-for="(item, index) in visibleTextData" :key="index" :item="item" />
         </div>
-        <div id="test-input-wrapper">
+        <div class="test-input-wrapper">
             <label for="test-input">
                 <input
                     class="test-input"
@@ -69,7 +77,7 @@ watch(typedText, () => {
                 />
             </label>
         </div>
-        <div id="buttons">
+        <div class="buttons">
             <button ref="startButton" @click="handleStartClick">Start</button>
             <button ref="resetButton" @click="handleResetClick">Reset</button>
         </div>
@@ -77,25 +85,15 @@ watch(typedText, () => {
 </template>
 
 <style scoped>
-.correct {
-    color: inherit;
-    opacity: 1;
-}
-
-.incorrect {
-    color: red;
-}
-
-.unknown {
-    color: inherit;
-    opacity: 0.5;
-}
-
 input.test-input {
     position: absolute;
     opacity: 0;
     z-index: -1;
     width: 0;
     height: 0;
+}
+
+.errors-count {
+    color: red;
 }
 </style>

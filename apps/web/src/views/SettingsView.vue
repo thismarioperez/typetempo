@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import TheSettings from "@/components/TheSettings.vue";
+</script>
 <template>
-    <h1>Settings</h1>
+    <main>
+        <TheSettings />
+    </main>
 </template>
