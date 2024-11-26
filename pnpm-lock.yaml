@@ -26,6 +26,9 @@ importers:
       '@typetempo/db':
         specifier: workspace:*
         version: link:../../packages/database
+      '@typetempo/models':
+        specifier: workspace:^
+        version: link:../../packages/models
       bcryptjs:
         specifier: ^2.4.3
         version: 2.4.3
@@ -226,6 +229,19 @@ importers:
       typescript:
         specifier: ^5.6.3
         version: 5.6.3
+
+  packages/models:
+    dependencies:
+      '@typetempo/db':
+        specifier: workspace:^
+        version: link:../database
+    devDependencies:
+      '@typetempo/config-eslint':
+        specifier: workspace:^
+        version: link:../config-eslint
+      '@typetempo/config-typescript':
+        specifier: workspace:^
+        version: link:../config-typescript
 
 packages:
 
