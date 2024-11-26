@@ -1,4 +1,4 @@
-import { User, RegisterData } from "../types/auth.types";
+import { User, RegisterData } from "@typetempo/models";
 import { HttpException } from "../utils/exceptions";
 
 export class AuthService {
@@ -12,7 +12,7 @@ export class AuthService {
         }
 
         const user: User = {
-            id: Date.now().toString(),
+            id: Date.now(),
             ...userData,
         };
 
@@ -24,7 +24,7 @@ export class AuthService {
         return this.users.find((user) => user.email === email);
     }
 
-    async findUserById(id: string): Promise<User | undefined> {
+    async findUserById(id: number): Promise<User | undefined> {
         return this.users.find((user) => user.id === id);
     }
 }
