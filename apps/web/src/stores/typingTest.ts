@@ -43,6 +43,7 @@ export const createVisibleWordCharacters = (testWord: string, typedWord: string)
         status = calculateCharacterStatus(currentTestChar, currentTypedChar);
 
         ret.push({
+            id: crypto.randomUUID(),
             value,
             status,
             type,
@@ -71,6 +72,7 @@ export const calculateVisibleWordData = (
         // add a space
         if (index < length - 1) {
             visibleWords.push({
+                id: crypto.randomUUID(),
                 value: " ",
                 status: "unknown",
                 type: "space",
@@ -142,6 +144,7 @@ export const useTypingTestStore = defineStore("typingTest", () => {
     const testEnded = ref(false);
 
     // computed
+    const cursorIndex = computed(() => typedText.value.length);
     const currentWordIndex = computed(() => calculateCurrentWordIndex(typedText.value));
 
     const visibleTextData = computed((): Character[] =>
@@ -202,6 +205,7 @@ export const useTypingTestStore = defineStore("typingTest", () => {
         testStarted,
         testEnded,
         // computed
+        cursorIndex,
         currentWordIndex,
         visibleTextData,
         wordsTyped,

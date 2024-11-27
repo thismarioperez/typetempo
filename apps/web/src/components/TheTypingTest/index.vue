@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Character from "@/components/TheTypingTest/ItemChar.vue";
+import ItemChar from "@/components/TheTypingTest/ItemChar.vue";
 import { useSettingsStore } from "@/stores/settings";
 import { useTypingTestStore } from "@/stores/typingTest";
 import { storeToRefs } from "pinia";
@@ -17,33 +17,47 @@ const { settings } = storeToRefs(useSettingsStore());
 
 const { wordLimit } = settings.value;
 
-const { currentWordIndex, visibleTextData, testText, typedText, wpm, testStarted, testEnded, wordsTyped, errorsCount } =
-    storeToRefs(typingTestStore);
+const {
+    cursorIndex,
+    currentWordIndex,
+    visibleTextData,
+    testText,
+    typedText,
+    wpm,
+    testStarted,
+    testEnded,
+    wordsTyped,
+    errorsCount,
+} = storeToRefs(typingTestStore);
 
 const textInput = ref<HTMLInputElement | null>(null);
 const startButton = ref<HTMLButtonElement | null>(null);
 const resetButton = ref<HTMLButtonElement | null>(null);
 
 const handleStartClick = () => {
-    textInput.value?.focus();
     startTest();
+    textInput.value?.focus();
+};
+
+const handleEndClick = () => {
+    endTest();
+    textInput.value?.blur();
 };
 
 const handleResetClick = () => {
-    startButton.value?.focus();
     resetTest();
+    startButton.value?.focus();
 };
 
 watch(typedText, () => {
     if (testStarted.value && !testEnded.value && wordsTyped.value === testText.value.split(" ").length) {
         endTest();
-        resetButton.value?.focus();
     }
 });
 </script>
 
 <template>
-    <div class="typing-test">
+    <div class="typing-test wrapper">
         <h1>Typing Test</h1>
         <div class="count-indicator">
             <span>{{ currentWordIndex + 1 }}/{{ wordLimit }}</span>
@@ -54,8 +68,12 @@ watch(typedText, () => {
             <span>{{ wpm }} WPM</span>
         </div>
         <div class="visual-text">
-            <!-- TODO: create more stable unique keys for each item -->
-            <Character v-for="(item, index) in visibleTextData" :key="index" :item="item" />
+            <ItemChar
+                v-for="(item, index) in visibleTextData"
+                :key="item.id"
+                :item="item"
+                :active="testStarted && index === cursorIndex"
+            />
         </div>
         <div class="test-input-wrapper">
             <label for="test-input">
@@ -73,13 +91,24 @@ watch(typedText, () => {
             </label>
         </div>
         <div class="buttons">
-            <button ref="startButton" @click="handleStartClick">Start</button>
-            <button ref="resetButton" @click="handleResetClick">Reset</button>
+            <button v-if="!testStarted" ref="startButton" @click="handleStartClick">Start</button>
+            <button v-else-if="testStarted && !testEnded" ref="endButton" @click="handleEndClick">End</button>
+            <button v-else ref="resetButton" @click="handleResetClick">Reset</button>
         </div>
     </div>
 </template>
 
 <style scoped>
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 8rem;
+}
+
 input.test-input {
     position: absolute;
     opacity: 0;
