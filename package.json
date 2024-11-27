@@ -9,11 +9,14 @@
     "scripts": {
         "preinstall": "npx only-allow pnpm", 
         "build": "turbo build",
+        "db:push": "pnpm --filter @typetempo/db run db:push",
+        "db:reset": "pnpm --filter @typetempo/db run db:reset",
+        "db:generate": "pnpm --filter @typetempo/db run db:generate",
         "dev": "turbo dev",
         "start": "turbo start",
-        "start:api": "turbo start --filter=api",
         "lint": "turbo lint",
-        "format": "prettier --write \"**/*.{ts,tsx,md}\""
+        "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+        "test:web": "pnpm --filter web test:unit"
     },
     "devDependencies": {
         "eslint": "^8.57.0",

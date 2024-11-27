@@ -31,7 +31,9 @@ model UserSettings {
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   theme         String   @default("light")
   language      String   @default("en")
+  wordLimit     Int      @default(20)
   notifications Boolean  @default(true)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
+
