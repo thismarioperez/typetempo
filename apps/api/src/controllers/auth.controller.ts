@@ -1,16 +1,16 @@
 import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { AuthService } from "../services/auth.service";
+import { UserService } from "src/services/user.service";
 import { config } from "../config";
 import { HttpException } from "../utils/exceptions";
 import { LoginCredentials, RegisterData, AuthResponse } from "@typetempo/models";
 
 export class AuthController {
-    private authService: AuthService;
+    private userService: UserService;
 
     constructor() {
-        this.authService = new AuthService();
+        this.userService = new UserService();
     }
 
     register = async (
@@ -22,7 +22,7 @@ export class AuthController {
             const { email, password } = req.body;
 
             const hashedPassword = await bcrypt.hash(password, 10);
-            const user = await this.authService.createUser({
+            const user = await this.userService.createUser({
                 email,
                 password: hashedPassword,
             });
@@ -44,7 +44,7 @@ export class AuthController {
         try {
             const { email, password } = req.body;
 
-            const user = await this.authService.findUserByEmail(email);
+            const user = await this.userService.findUserByEmail(email);
             if (!user) {
                 throw new HttpException(401, "Invalid credentials");
             }
