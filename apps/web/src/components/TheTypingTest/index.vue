@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import Character from "@/components/TheTypingTest/ItemChar.vue";
+import { useSettingsStore } from "@/stores/settings";
 import { useTypingTestStore } from "@/stores/typingTest";
 import { storeToRefs } from "pinia";
 import { ref, watch } from "vue";
@@ -12,18 +13,12 @@ const {
     resetTest,
 } = typingTestStore;
 
-const {
-    wordLimit,
-    currentWordIndex,
-    visibleTextData,
-    testText,
-    typedText,
-    wpm,
-    testStarted,
-    testEnded,
-    wordsTyped,
-    errorsCount,
-} = storeToRefs(typingTestStore);
+const { settings } = storeToRefs(useSettingsStore());
+
+const { wordLimit } = settings.value;
+
+const { currentWordIndex, visibleTextData, testText, typedText, wpm, testStarted, testEnded, wordsTyped, errorsCount } =
+    storeToRefs(typingTestStore);
 
 const textInput = ref<HTMLInputElement | null>(null);
 const startButton = ref<HTMLButtonElement | null>(null);

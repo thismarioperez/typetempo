@@ -130,10 +130,11 @@ export const calculateWPM = (startTime: number, endTime: number, wordsTyped: num
 
 export const useTypingTestStore = defineStore("typingTest", () => {
     // external state
-    const { language, wordLimit } = storeToRefs(useSettingsStore());
+    const { settings } = storeToRefs(useSettingsStore());
+    const { language, wordLimit } = settings.value;
 
     // state
-    const testText = ref(getShuffledWordsByCode(language.value, parseInt(wordLimit.value)).join(" "));
+    const testText = ref(getShuffledWordsByCode(language, wordLimit).join(" "));
     const typedText = ref("");
     const startTime = ref<number | null>(null);
     const endTime = ref<number | null>(null);
@@ -179,7 +180,7 @@ export const useTypingTestStore = defineStore("typingTest", () => {
     };
 
     const resetTest = () => {
-        testText.value = getShuffledWordsByCode(language.value, parseInt(wordLimit.value)).join(" ");
+        testText.value = getShuffledWordsByCode(language, wordLimit).join(" ");
         typedText.value = "";
         startTime.value = null;
         endTime.value = null;
@@ -188,18 +189,12 @@ export const useTypingTestStore = defineStore("typingTest", () => {
     };
 
     // watchers
-    watch(language, () => {
-        resetTest();
-    });
-
-    watch(wordLimit, () => {
+    watch(settings.value, () => {
         resetTest();
     });
 
     return {
         // state
-        language,
-        wordLimit,
         testText,
         typedText,
         startTime,

@@ -4,7 +4,7 @@ import { useSettingsStore } from "@/stores/settings";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
 
-const { theme, language, wordLimit } = storeToRefs(useSettingsStore());
+const { settings } = storeToRefs(useSettingsStore());
 
 const { updateSettings } = useSettingsStore();
 
@@ -31,7 +31,7 @@ const handleChange = () => {
         <div class="inputs">
             <label for="theme">
                 <span>Theme</span>
-                <select name="theme" id="theme" v-model="theme">
+                <select name="theme" id="theme" v-model="settings.theme">
                     <option v-for="theme in data.THEMES" :key="theme" :value="theme">
                         {{ theme }}
                     </option>
@@ -39,7 +39,7 @@ const handleChange = () => {
             </label>
             <label for="language">
                 <span>Language</span>
-                <select name="language" id="language" v-model="language">
+                <select name="language" id="language" v-model="settings.language">
                     <option
                         v-for="entry in Object.entries(data.LANGUAGE_CODES_TO_NAME)"
                         :key="entry[0]"
@@ -51,7 +51,7 @@ const handleChange = () => {
             </label>
             <label for="wordLimit">
                 <span>Word Limit</span>
-                <select name="wordLimit" id="wordLimit" v-model="wordLimit">
+                <select name="wordLimit" id="wordLimit" v-model.number="settings.wordLimit">
                     <option v-for="wordLimit in data.WORD_LIMITS" :key="wordLimit" :value="wordLimit">
                         {{ wordLimit }}
                     </option>
