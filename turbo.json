@@ -5,20 +5,8 @@
             "inputs": [".env*"],
             "cache": false
         },
-        "db:push": {
-            "inputs": [".env*"],
-            "cache": false
-        },
-        "db:migrate": {
-            "inputs": [".env*"],
-            "cache": false
-        },
-        "db:studio": {
-            "inputs": [".env*"],
-            "cache": false
-        },
         "build": {
-            "dependsOn": ["db:generate"],
+            "dependsOn": ["db:generate", "^build"],
             "inputs": ["$TURBO_DEFAULT$", ".env*"],
             "outputs": ["dist/**"]
         },

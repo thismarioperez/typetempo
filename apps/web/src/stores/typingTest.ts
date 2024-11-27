@@ -43,6 +43,7 @@ export const createVisibleWordCharacters = (testWord: string, typedWord: string)
         status = calculateCharacterStatus(currentTestChar, currentTypedChar);
 
         ret.push({
+            id: crypto.randomUUID(),
             value,
             status,
             type,
@@ -71,6 +72,7 @@ export const calculateVisibleWordData = (
         // add a space
         if (index < length - 1) {
             visibleWords.push({
+                id: crypto.randomUUID(),
                 value: " ",
                 status: "unknown",
                 type: "space",
@@ -130,10 +132,11 @@ export const calculateWPM = (startTime: number, endTime: number, wordsTyped: num
 
 export const useTypingTestStore = defineStore("typingTest", () => {
     // external state
-    const { language, wordLimit } = storeToRefs(useSettingsStore());
+    const { settings } = storeToRefs(useSettingsStore());
+    const { language, wordLimit } = settings.value;
 
     // state
-    const testText = ref(getShuffledWordsByCode(language.value, parseInt(wordLimit.value)).join(" "));
+    const testText = ref(getShuffledWordsByCode(language, wordLimit).join(" "));
     const typedText = ref("");
     const startTime = ref<number | null>(null);
     const endTime = ref<number | null>(null);
@@ -142,6 +145,9 @@ export const useTypingTestStore = defineStore("typingTest", () => {
 
     // computed
     const currentWordIndex = computed(() => calculateCurrentWordIndex(typedText.value));
+    const cursorIndex = computed(() => {
+        return typedText.value.length;
+    });
 
     const visibleTextData = computed((): Character[] =>
         calculateVisibleWordData(testText.value, typedText.value, currentWordIndex.value),
@@ -179,7 +185,7 @@ export const useTypingTestStore = defineStore("typingTest", () => {
     };
 
     const resetTest = () => {
-        testText.value = getShuffledWordsByCode(language.value, parseInt(wordLimit.value)).join(" ");
+        testText.value = getShuffledWordsByCode(language, wordLimit).join(" ");
         typedText.value = "";
         startTime.value = null;
         endTime.value = null;
@@ -187,19 +193,10 @@ export const useTypingTestStore = defineStore("typingTest", () => {
         testEnded.value = false;
     };
 
-    // watchers
-    watch(language, () => {
-        resetTest();
-    });
-
-    watch(wordLimit, () => {
-        resetTest();
-    });
-
     return {
+        // external state - don't actually use these
+        settings,
         // state
-        language,
-        wordLimit,
         testText,
         typedText,
         startTime,
@@ -207,6 +204,7 @@ export const useTypingTestStore = defineStore("typingTest", () => {
         testStarted,
         testEnded,
         // computed
+        cursorIndex,
         currentWordIndex,
         visibleTextData,
         wordsTyped,
