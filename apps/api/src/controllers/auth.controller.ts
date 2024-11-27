@@ -4,11 +4,7 @@ import jwt from "jsonwebtoken";
 import { AuthService } from "../services/auth.service";
 import { config } from "../config";
 import { HttpException } from "../utils/exceptions";
-import {
-    LoginCredentials,
-    RegisterData,
-    AuthResponse,
-} from "../types/auth.types";
+import { LoginCredentials, RegisterData, AuthResponse } from "@typetempo/models";
 
 export class AuthController {
     private authService: AuthService;
@@ -20,7 +16,7 @@ export class AuthController {
     register = async (
         req: Request<unknown, unknown, RegisterData>,
         res: Response<AuthResponse>,
-        next: NextFunction
+        next: NextFunction,
     ) => {
         try {
             const { email, password } = req.body;
@@ -43,7 +39,7 @@ export class AuthController {
     login = async (
         req: Request<unknown, unknown, LoginCredentials>,
         res: Response<AuthResponse>,
-        next: NextFunction
+        next: NextFunction,
     ) => {
         try {
             const { email, password } = req.body;
@@ -53,10 +49,7 @@ export class AuthController {
                 throw new HttpException(401, "Invalid credentials");
             }
 
-            const isValidPassword = await bcrypt.compare(
-                password,
-                user.password
-            );
+            const isValidPassword = await bcrypt.compare(password, user.password);
             if (!isValidPassword) {
                 throw new HttpException(401, "Invalid credentials");
             }

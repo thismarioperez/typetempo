@@ -1,8 +1,8 @@
-import { User, RegisterData } from "@typetempo/models";
+import { User, RegisterData, UserWithPassword } from "@typetempo/models";
 import { HttpException } from "../utils/exceptions";
 
 export class AuthService {
-    private users: User[] = [];
+    private users: UserWithPassword[] = [];
 
     async createUser(userData: RegisterData): Promise<User> {
         const existingUser = await this.findUserByEmail(userData.email);
@@ -16,15 +16,15 @@ export class AuthService {
             ...userData,
         };
 
-        this.users.push(user);
+        this.users.push(user as UserWithPassword);
         return user;
     }
 
-    async findUserByEmail(email: string): Promise<User | undefined> {
+    async findUserByEmail(email: string): Promise<UserWithPassword | undefined> {
         return this.users.find((user) => user.email === email);
     }
 
-    async findUserById(id: number): Promise<User | undefined> {
+    async findUserById(id: number): Promise<UserWithPassword | undefined> {
         return this.users.find((user) => user.id === id);
     }
 }
