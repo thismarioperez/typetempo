@@ -101,3 +101,7 @@ E.g.
     --color-text: white;
 }
 ```
+
+### Form Validation
+
+Authentication forms could use validation to enforce that a user is submitting a valid email and password.
