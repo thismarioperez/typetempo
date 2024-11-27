@@ -1,4 +1,4 @@
-import { User as BaseUser } from "@typetempo/db";
+import { type User as BaseUser } from "@typetempo/db";
 
 export type User = Partial<BaseUser> & Pick<Omit<BaseUser, "password">, "id" | "email">;
 export type UserWithPassword = User & Pick<BaseUser, "password">;

@@ -1,6 +1,10 @@
 {
     "$schema": "https://turbo.build/schema.json",
     "tasks": {
+        "db:seed": {
+            "inputs": [".env*"],
+            "cache": false
+        },
         "db:generate": {
             "inputs": [".env*"],
             "cache": false
@@ -11,7 +15,13 @@
         },
         "db:migrate": {
             "inputs": [".env*"],
-            "cache": false
+            "cache": false,
+            "persistent": true
+        },
+        "db:reset": {
+            "inputs": [".env*"],
+            "cache": false,
+            "persistent": true
         },
         "db:studio": {
             "inputs": [".env*"],

@@ -51,68 +51,88 @@ describe("Typing Test Store", () => {
             const testText = "hello";
             const typedText = "hello";
             const output: Character[] = [
-                { value: "h", status: "correct", type: "symbol" },
-                { value: "e", status: "correct", type: "symbol" },
-                { value: "l", status: "correct", type: "symbol" },
-                { value: "l", status: "correct", type: "symbol" },
-                { value: "o", status: "correct", type: "symbol" },
+                { id: crypto.randomUUID(), value: "h", status: "correct", type: "symbol" },
+                { id: crypto.randomUUID(), value: "e", status: "correct", type: "symbol" },
+                { id: crypto.randomUUID(), value: "l", status: "correct", type: "symbol" },
+                { id: crypto.randomUUID(), value: "l", status: "correct", type: "symbol" },
+                { id: crypto.randomUUID(), value: "o", status: "correct", type: "symbol" },
             ];
 
             const result = createVisibleWordCharacters(testText, typedText);
 
-            expect(result).toEqual(output);
+            result.forEach((char, index) => {
+                expect(char.id).toBeTypeOf("string");
+                expect(char.value).toBe(output[index].value);
+                expect(char.status).toBe(output[index].status);
+                expect(char.type).toBe(output[index].type);
+            });
         });
 
         it("should detect incorrect characters, even if some are correct", () => {
             const testText = "hello";
             const typedText = "world";
             const output: Character[] = [
-                { value: "h", status: "incorrect", type: "symbol" },
-                { value: "e", status: "incorrect", type: "symbol" },
-                { value: "l", status: "incorrect", type: "symbol" },
-                { value: "l", status: "correct", type: "symbol" },
-                { value: "o", status: "incorrect", type: "symbol" },
+                { id: crypto.randomUUID(), value: "h", status: "incorrect", type: "symbol" },
+                { id: crypto.randomUUID(), value: "e", status: "incorrect", type: "symbol" },
+                { id: crypto.randomUUID(), value: "l", status: "incorrect", type: "symbol" },
+                { id: crypto.randomUUID(), value: "l", status: "correct", type: "symbol" },
+                { id: crypto.randomUUID(), value: "o", status: "incorrect", type: "symbol" },
             ];
 
             const result = createVisibleWordCharacters(testText, typedText);
 
-            expect(result).toEqual(output);
+            result.forEach((char, index) => {
+                expect(char.id).toBeTypeOf("string");
+                expect(char.value).toBe(output[index].value);
+                expect(char.status).toBe(output[index].status);
+                expect(char.type).toBe(output[index].type);
+            });
         });
 
         it("should emit extra characters as incorrect characters", () => {
             const testText = "hello";
             const typedText = "helloasdf";
             const output: Character[] = [
-                { value: "h", status: "correct", type: "symbol" },
-                { value: "e", status: "correct", type: "symbol" },
-                { value: "l", status: "correct", type: "symbol" },
-                { value: "l", status: "correct", type: "symbol" },
-                { value: "o", status: "correct", type: "symbol" },
-                { value: "a", status: "incorrect", type: "symbol" },
-                { value: "s", status: "incorrect", type: "symbol" },
-                { value: "d", status: "incorrect", type: "symbol" },
-                { value: "f", status: "incorrect", type: "symbol" },
+                { id: crypto.randomUUID(), value: "h", status: "correct", type: "symbol" },
+                { id: crypto.randomUUID(), value: "e", status: "correct", type: "symbol" },
+                { id: crypto.randomUUID(), value: "l", status: "correct", type: "symbol" },
+                { id: crypto.randomUUID(), value: "l", status: "correct", type: "symbol" },
+                { id: crypto.randomUUID(), value: "o", status: "correct", type: "symbol" },
+                { id: crypto.randomUUID(), value: "a", status: "incorrect", type: "symbol" },
+                { id: crypto.randomUUID(), value: "s", status: "incorrect", type: "symbol" },
+                { id: crypto.randomUUID(), value: "d", status: "incorrect", type: "symbol" },
+                { id: crypto.randomUUID(), value: "f", status: "incorrect", type: "symbol" },
             ];
 
             const result = createVisibleWordCharacters(testText, typedText);
 
-            expect(result).toEqual(output);
+            result.forEach((char, index) => {
+                expect(char.id).toBeTypeOf("string");
+                expect(char.value).toBe(output[index].value);
+                expect(char.status).toBe(output[index].status);
+                expect(char.type).toBe(output[index].type);
+            });
         });
 
         it("should detect unknown characters", () => {
             const testText = "hello";
             const typedText = "";
             const output: Character[] = [
-                { value: "h", status: "unknown", type: "symbol" },
-                { value: "e", status: "unknown", type: "symbol" },
-                { value: "l", status: "unknown", type: "symbol" },
-                { value: "l", status: "unknown", type: "symbol" },
-                { value: "o", status: "unknown", type: "symbol" },
+                { id: crypto.randomUUID(), value: "h", status: "unknown", type: "symbol" },
+                { id: crypto.randomUUID(), value: "e", status: "unknown", type: "symbol" },
+                { id: crypto.randomUUID(), value: "l", status: "unknown", type: "symbol" },
+                { id: crypto.randomUUID(), value: "l", status: "unknown", type: "symbol" },
+                { id: crypto.randomUUID(), value: "o", status: "unknown", type: "symbol" },
             ];
 
             const result = createVisibleWordCharacters(testText, typedText);
 
-            expect(result).toEqual(output);
+            result.forEach((char, index) => {
+                expect(char.id).toBeTypeOf("string");
+                expect(char.value).toBe(output[index].value);
+                expect(char.status).toBe(output[index].status);
+                expect(char.type).toBe(output[index].type);
+            });
         });
     });
 
@@ -130,22 +150,27 @@ describe("Typing Test Store", () => {
             const testText = "hello world";
             const typedText = "hello";
             const output: Character[] = [
-                { value: "h", status: "correct", type: "symbol" },
-                { value: "e", status: "correct", type: "symbol" },
-                { value: "l", status: "correct", type: "symbol" },
-                { value: "l", status: "correct", type: "symbol" },
-                { value: "o", status: "correct", type: "symbol" },
-                { value: " ", status: "unknown", type: "space" },
-                { value: "w", status: "unknown", type: "symbol" },
-                { value: "o", status: "unknown", type: "symbol" },
-                { value: "r", status: "unknown", type: "symbol" },
-                { value: "l", status: "unknown", type: "symbol" },
-                { value: "d", status: "unknown", type: "symbol" },
+                { id: crypto.randomUUID(), value: "h", status: "correct", type: "symbol" },
+                { id: crypto.randomUUID(), value: "e", status: "correct", type: "symbol" },
+                { id: crypto.randomUUID(), value: "l", status: "correct", type: "symbol" },
+                { id: crypto.randomUUID(), value: "l", status: "correct", type: "symbol" },
+                { id: crypto.randomUUID(), value: "o", status: "correct", type: "symbol" },
+                { id: crypto.randomUUID(), value: " ", status: "unknown", type: "space" },
+                { id: crypto.randomUUID(), value: "w", status: "unknown", type: "symbol" },
+                { id: crypto.randomUUID(), value: "o", status: "unknown", type: "symbol" },
+                { id: crypto.randomUUID(), value: "r", status: "unknown", type: "symbol" },
+                { id: crypto.randomUUID(), value: "l", status: "unknown", type: "symbol" },
+                { id: crypto.randomUUID(), value: "d", status: "unknown", type: "symbol" },
             ];
             const currentWordIndex = 0;
             const result = calculateVisibleWordData(testText, typedText, currentWordIndex);
 
-            expect(result).toEqual(output);
+            result.forEach((char, index) => {
+                expect(char.id).toBeTypeOf("string");
+                expect(char.value).toBe(output[index].value);
+                expect(char.status).toBe(output[index].status);
+                expect(char.type).toBe(output[index].type);
+            });
         });
 
         it(`should add ${PADDED_WORDS} words after the current word`, () => {

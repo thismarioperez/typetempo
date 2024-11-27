@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { AuthService } from "../../../src/services/auth.service";
+import { UserService } from "../../../src/services/user.service";
 
-describe("AuthService Unit Tests", () => {
-    let authService: AuthService;
+describe("UserService Unit Tests", () => {
+    let userService: UserService;
 
     beforeEach(() => {
-        authService = new AuthService();
+        userService = new UserService();
     });
 
     describe("createUser", () => {
@@ -15,7 +15,7 @@ describe("AuthService Unit Tests", () => {
                 password: "hashedpassword",
             };
 
-            const user = await authService.createUser(userData);
+            const user = await userService.createUser(userData);
             expect(user).toHaveProperty("id");
             expect(user.email).toBe(userData.email);
             expect(user.password).toBe(userData.password);
@@ -29,17 +29,15 @@ describe("AuthService Unit Tests", () => {
                 password: "hashedpassword",
             };
 
-            await authService.createUser(userData);
-            const foundUser = await authService.findUserByEmail(userData.email);
+            await userService.createUser(userData);
+            const foundUser = await userService.findUserByEmail(userData.email);
 
             expect(foundUser).toBeDefined();
             expect(foundUser?.email).toBe(userData.email);
         });
 
         it("should return undefined for non-existent user", async () => {
-            const foundUser = await authService.findUserByEmail(
-                "nonexistent@example.com"
-            );
+            const foundUser = await userService.findUserByEmail("nonexistent@example.com");
             expect(foundUser).toBeUndefined();
         });
     });
