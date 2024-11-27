@@ -93,7 +93,7 @@ onMounted(() => {
 
 <template>
     <div class="typing-test wrapper">
-        <h1>Typing Test</h1>
+        <h1>typetempo</h1>
         <div class="count-indicator">
             <span>{{ currentWordIndex + 1 }}/{{ wordLimit }}</span>
             <span>{{ " " }}</span>
@@ -143,6 +143,11 @@ onMounted(() => {
     gap: 1rem;
     width: 100%;
     padding: 8rem;
+}
+
+.visual-text {
+    text-align: center;
+    font-size: 1.5rem;
 }
 
 input.test-input {
