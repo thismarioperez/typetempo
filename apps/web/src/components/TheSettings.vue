@@ -3,6 +3,7 @@ import { THEMES, LANGUAGE_CODES_TO_NAME, WORD_LIMITS, type Settings } from "@/mo
 import { useSettingsStore } from "@/stores/settings";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
+import TheAuthForms from "./TheAuthForms.vue";
 
 const { settings } = storeToRefs(useSettingsStore());
 
@@ -59,6 +60,7 @@ const handleChange = () => {
             </label>
         </div>
     </form>
+    <TheAuthForms />
 </template>
 
 <style scoped>

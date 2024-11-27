@@ -30,6 +30,7 @@ const handleRegisterSubmit = async () => {
 
 <template>
     <div v-if="!isAuthenticated">
+        <h1>{{ mode === "login" ? "Login" : "Register" }}</h1>
         <form v-if="mode === 'login'" ref="loginForm" @submit.prevent="handleLoginSubmit">
             <input id="email" type="text" name="email" placeholder="email" v-model="loginData.email" />
             <input id="password" type="password" name="password" placeholder="password" v-model="loginData.password" />
@@ -51,8 +52,12 @@ const handleRegisterSubmit = async () => {
         <button v-if="mode === 'register'" @click="mode = 'login'">Login instead</button>
     </div>
     <div v-else>
-        <p>You are already logged in</p>
+        <p class="green">You are logged in</p>
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.green {
+    color: green;
+}
+</style>
