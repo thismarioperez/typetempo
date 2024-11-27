@@ -8,7 +8,6 @@
     "packageManager": "pnpm@8.15.6",
     "scripts": {
         "preinstall": "npx only-allow pnpm", 
-        "clean": "turbo clean",
         "build": "turbo build",
         "db:reset": "turbo run db:reset",
         "db:seed": "turbo run db:seed",
