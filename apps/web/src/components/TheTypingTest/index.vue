@@ -18,10 +18,10 @@ const { settings } = storeToRefs(useSettingsStore());
 const { wordLimit } = settings.value;
 
 const {
+    testText,
     cursorIndex,
     currentWordIndex,
     visibleTextData,
-    testText,
     typedText,
     wpm,
     testStarted,
@@ -49,7 +49,37 @@ const handleResetClick = () => {
     startButton.value?.focus();
 };
 
+const handleTextInputKeydown = (e: KeyboardEvent) => {
+    switch (e.key) {
+        case "Enter":
+            endTest();
+            break;
+        case "Escape":
+            resetTest();
+            startButton.value?.focus();
+            break;
+        case " ": {
+            if (testStarted.value && !testEnded.value) {
+                // prevent multiple spaces in a row
+                if (typedText.value[typedText.value.length - 1] === " ") {
+                    e.preventDefault();
+                }
+
+                // prevent space in the middle of a word
+                const currentTestWord = testText.value.split(" ")[currentWordIndex.value];
+                const currentTypedWord = typedText.value.split(" ")[currentWordIndex.value];
+                if (currentTypedWord.length < currentTestWord.length) {
+                    e.preventDefault();
+                }
+            }
+        }
+        default:
+            break;
+    }
+};
+
 watch(typedText, () => {
+    // end test if all words are typed
     if (testStarted.value && !testEnded.value && wordsTyped.value === wordLimit) {
         endTest();
     }
@@ -77,7 +107,7 @@ onMounted(() => {
                 v-for="(item, index) in visibleTextData"
                 :key="item.id"
                 :item="item"
-                :active="testStarted && index === cursorIndex"
+                :active="testStarted && !testEnded && index === cursorIndex"
             />
         </div>
         <div class="test-input-wrapper">
@@ -91,7 +121,8 @@ onMounted(() => {
                     autocorrect="off"
                     autocapitalize="off"
                     spellcheck="false"
-                    v-model.trim="typedText"
+                    v-model="typedText"
+                    @keydown="handleTextInputKeydown"
                 />
             </label>
         </div>
