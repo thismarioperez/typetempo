@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
 const prisma = new PrismaClient();
 async function main() {
     const user = await prisma.user.upsert({
@@ -7,11 +8,11 @@ async function main() {
         create: {
             email: "user@demo.com",
             name: "User Name",
-            password: "password",
+            password: bcrypt.hashSync("password", 10),
             userSettings: {
                 create: {
                     theme: "dark",
-                    language: "es",
+                    language: "en",
                 },
             },
         },
