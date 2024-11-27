@@ -14,7 +14,8 @@
         "dev": "turbo dev",
         "start": "turbo start",
         "lint": "turbo lint",
-        "format": "prettier --write \"**/*.{ts,tsx,md}\""
+        "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+        "test:web": "pnpm --filter web test:unit"
     },
     "devDependencies": {
         "eslint": "^8.57.0",
