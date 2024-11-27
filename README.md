@@ -2,7 +2,7 @@
 
 ## Setup
 
-This project requires a database. For convenience, a `docker-compose` file is included in this project that quickly setups a database for local development.
+This project requires a database. For convenience, a `docker-compose` file is included in this project that quickly sets up a database for local development.
 
 From the root of this project run:
 
@@ -38,6 +38,7 @@ Then, run `pnpm i && pnpm db:push && pnpm dev` to start up the dev servers for b
 
 ### Tech Stack
 
+-   turborepo: monorepo scripting and caching
 -   typescript
 -   `vue3` for the frontend
     -   Wanted to experiment with vue since I've primarily been using React lately.
