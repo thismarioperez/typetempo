@@ -9,7 +9,7 @@ export const useSettingsStore = defineStore("settings", () => {
     const updateSettings = (newSettings: Partial<Settings>) => {
         Object.entries(newSettings).forEach(([key, value]) => {
             // @ts-ignore
-            settings.value[key] = value;
+            settings[key] = value;
         });
     };
 

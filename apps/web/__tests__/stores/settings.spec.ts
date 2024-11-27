@@ -17,8 +17,9 @@ describe("Settings Store", () => {
     Object.entries(testSettings).forEach(([key, value]) => {
         it(`should set ${key} to ${value}`, () => {
             const store = useSettingsStore();
+            console.log(store.settings);
             store.updateSettings({ [key]: value });
-            expect(store[key]).toBe(value);
+            expect(store.settings[key]).toBe(value);
         });
     });
 });
