@@ -8,7 +8,7 @@ From the root of this project run:
 
 `docker compose up -d`
 
-Then, run `pnpm i && pnpm dev` to start up the dev servers for both `api` and `web` projects.
+Then, run `pnpm i && pnpm db:push && pnpm dev` to start up the dev servers for both `api` and `web` projects.
 
 ### Apps, Packages, and file-structure
 
@@ -20,6 +20,7 @@ Then, run `pnpm i && pnpm dev` to start up the dev servers for both `api` and `w
 
 ### Scripts
 
+-   `db:push`: Pushes prisma schema to the database
 -   `db:generate`: Regenerate the prisma client
 -   `dev`: Startup `api` and `web` dev servers
 -   `test:web` Run `web` unit tests

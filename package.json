@@ -9,6 +9,7 @@
     "scripts": {
         "preinstall": "npx only-allow pnpm", 
         "build": "turbo build",
+        "db:push": "pnpm --filter @typetempo/db run db:push",
         "db:reset": "pnpm --filter @typetempo/db run db:reset",
         "db:generate": "pnpm --filter @typetempo/db run db:generate",
         "dev": "turbo dev",
