@@ -3,7 +3,7 @@ import ItemChar from "@/components/TheTypingTest/ItemChar.vue";
 import { useSettingsStore } from "@/stores/settings";
 import { useTypingTestStore } from "@/stores/typingTest";
 import { storeToRefs } from "pinia";
-import { ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 
 const typingTestStore = useTypingTestStore();
 const {
@@ -50,9 +50,14 @@ const handleResetClick = () => {
 };
 
 watch(typedText, () => {
-    if (testStarted.value && !testEnded.value && wordsTyped.value === testText.value.split(" ").length) {
+    if (testStarted.value && !testEnded.value && wordsTyped.value === wordLimit) {
         endTest();
     }
+});
+
+onMounted(() => {
+    resetTest();
+    startButton.value?.focus();
 });
 </script>
 
