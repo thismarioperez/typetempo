@@ -17,6 +17,7 @@ Then, run `pnpm i && pnpm db:push && pnpm dev` to start up the dev servers for b
 -   `@typetempo/db`: shared `prisma` orm library for interacting with database
 -   `@typetempo/config-eslint`: shared `eslint` configurations
 -   `@typetempo/config-typescript`: `tsconfig.json`s used throughout the monorepo
+-   `@typetempo/models`: common types and data structures used throught the monorepo
 
 ### Scripts
 
