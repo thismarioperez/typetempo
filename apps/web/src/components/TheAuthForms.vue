@@ -3,9 +3,9 @@ import { reactive, ref } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import { storeToRefs } from "pinia";
 import type { LoginCredentials, RegisterData } from "@typetempo/models";
-const { authResponse, isAuthenticated } = storeToRefs(useAuthStore());
+const { isAuthenticated } = storeToRefs(useAuthStore());
 const { login, register } = useAuthStore();
-const mode = ref<"login" | "register">("login");
+const mode = ref<"login" | "register">("register");
 const loginData = reactive<LoginCredentials>({ email: "", password: "" });
 const registerData = reactive<RegisterData>({ email: "", name: "", password: "" });
 
@@ -24,6 +24,17 @@ const handleRegisterSubmit = async () => {
     if (response) {
         // register successful
         console.log("register successful");
+
+        // automatically login after registration
+        const response = await login({
+            email: registerData.email,
+            password: registerData.password,
+        });
+
+        if (response) {
+            // login successful
+            console.log("login successful");
+        }
     }
 };
 </script>

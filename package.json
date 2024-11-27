@@ -9,17 +9,14 @@
     "scripts": {
         "preinstall": "npx only-allow pnpm", 
         "build": "turbo build",
-        "db:reset": "turbo run db:reset",
-        "db:seed": "turbo run db:seed",
-        "db:generate": "turbo run db:generate",
-        "db:migrate": "turbo run db:migrate",
-        "db:push": "turbo run db:push",
-        "db:studio": "turbo run db:studio",
+        "db:push": "pnpm --filter @typetempo/db run db:push",
+        "db:reset": "pnpm --filter @typetempo/db run db:reset",
+        "db:generate": "pnpm --filter @typetempo/db run db:generate",
         "dev": "turbo dev",
         "start": "turbo start",
-        "start:api": "turbo start --filter=api",
         "lint": "turbo lint",
-        "format": "prettier --write \"**/*.{ts,tsx,md}\""
+        "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+        "test:web": "pnpm --filter web test:unit"
     },
     "devDependencies": {
         "eslint": "^8.57.0",
