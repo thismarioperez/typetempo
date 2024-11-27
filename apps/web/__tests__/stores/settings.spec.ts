@@ -10,7 +10,7 @@ beforeEach(() => {
 const testSettings: Settings = {
     language: "es",
     theme: "light",
-    wordLimit: "200",
+    wordLimit: 200,
 };
 
 describe("Settings Store", () => {
