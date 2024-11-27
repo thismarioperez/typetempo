@@ -191,11 +191,6 @@ export const useTypingTestStore = defineStore("typingTest", () => {
         testEnded.value = false;
     };
 
-    // watchers
-    watch(settings.value, () => {
-        resetTest();
-    });
-
     return {
         // state
         testText,
