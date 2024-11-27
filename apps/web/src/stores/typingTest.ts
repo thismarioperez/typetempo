@@ -144,8 +144,10 @@ export const useTypingTestStore = defineStore("typingTest", () => {
     const testEnded = ref(false);
 
     // computed
-    const cursorIndex = computed(() => typedText.value.length);
     const currentWordIndex = computed(() => calculateCurrentWordIndex(typedText.value));
+    const cursorIndex = computed(() => {
+        return typedText.value.length;
+    });
 
     const visibleTextData = computed((): Character[] =>
         calculateVisibleWordData(testText.value, typedText.value, currentWordIndex.value),
