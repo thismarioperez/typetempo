@@ -194,6 +194,8 @@ export const useTypingTestStore = defineStore("typingTest", () => {
     };
 
     return {
+        // external state - don't actually use these
+        settings,
         // state
         testText,
         typedText,
