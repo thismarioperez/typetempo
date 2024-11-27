@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { UserService } from "src/services/user.service";
+import { UserService } from "../services/user.service";
 import { config } from "../config";
 import { HttpException } from "../utils/exceptions";
 import { LoginCredentials, RegisterData, AuthResponse } from "@typetempo/models";
@@ -19,12 +19,13 @@ export class AuthController {
         next: NextFunction,
     ) => {
         try {
-            const { email, password } = req.body;
+            const { email, password, name } = req.body;
 
             const hashedPassword = await bcrypt.hash(password, 10);
             const user = await this.userService.createUser({
                 email,
                 password: hashedPassword,
+                name,
             });
 
             res.status(201).json({
