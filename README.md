@@ -26,6 +26,16 @@ Then, run `pnpm i && pnpm db:push && pnpm dev` to start up the dev servers for b
 -   `dev`: Startup `api` and `web` dev servers
 -   `test:web` Run `web` unit tests
 
+### Usage
+
+![Preview](public/demo.gif)
+
+-   Navigate to [http://localhost:5173/](http://localhost:5173/)
+-   Click the "start" button. This will auto-focus a hidden input field.
+-   Type the words you see on the screen.
+-   The default test length is 20 words. After you reach the word limit, the test will automatically end.
+-   Click "reset" to setup a new test. Click "start" to test again.
+
 # Overview
 
 ## Goals
